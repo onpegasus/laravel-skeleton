@@ -1,0 +1,38 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+    RewriteEngine On
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    RewriteEngine On
+    RewriteCond %{HTTP:Authorization} ^(.*)
+    RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
+<IfModule mod_php5.c>
+    # Tamanho máximo de upload por arquivo - 20MB
+    php_value upload_max_filesize "20M"
+
+    # Tamanho máximo de post - 20MB
+    php_value post_max_size "20M"
+
+    # Número máximo de arquivos por requisição - 10 arquivos
+    php_value max_file_uploads "10"
+
+    # Tempo máximo para input (segundos) -> 1200 = 15minutos
+    php_value max_input_time "1200"
+
+    # Tempo máximo de execução por processo (segundos) -> 1200 = 15minutos
+    php_value max_execution_time "1200"
+
+    # Limite de memória por processo - 256MB
+    php_value memory_limit "256M"
+</IfModule>

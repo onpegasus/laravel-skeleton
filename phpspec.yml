@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: OnPegasus
+        psr4_prefix: OnPegasus
+        src_path: app
